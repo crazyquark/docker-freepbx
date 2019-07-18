@@ -1,4 +1,4 @@
-FROM node:12-stretch
+FROM node:10-jessie
 
 ENV DEBIAN_FRONTEND noninteractive
 
