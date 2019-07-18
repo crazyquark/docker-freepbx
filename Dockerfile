@@ -25,9 +25,9 @@ RUN cd /usr/src \
 	&& rm -r /usr/src/jansson*
 
 RUN cd /usr/src \
-	&& wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-15.7.2.tar.gz \
-	&& tar xfz asterisk-15.7.2.tar.gz \
-	&& rm -f asterisk-15.7.2.tar.gz \
+	&& wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-15.7.3.tar.gz \
+	&& tar xfz asterisk-15.7.3.tar.gz \
+	&& rm -f asterisk-15.7.3.tar.gz \
 	&& cd asterisk-* \
 	&& contrib/scripts/install_prereq install \
 	&& ./configure --with-pjproject-bundled \
@@ -88,9 +88,17 @@ RUN	git clone https://github.com/BelledonneCommunications/bcg729 /usr/src/bcg729
 	curl https://bitbucket.org/arkadi/asterisk-g72x/get/default.tar.gz | tar xvfz - --strip 1 -C /usr/src/asterisk-g72x ; \
 	cd /usr/src/asterisk-g72x ; \
 	./autogen.sh ; \
-	./configure --with-bcg729 --with-asterisk${ASTERISK_VERSION}0 --enable-penryn; \
+	./configure CFLAGS='-march=armv7' --with-bcg729 --with-asterisk${ASTERISK_VERSION}0 --enable-penryn; \
 	make ; \
 	make install
+
+RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git && \
+	cd asterisk-chan-dongle && \
+	./bootstrap && \
+	./configure --with-astversion=14.7.5 && \
+	make && \
+	make install && \
+	cp etc/dongle.conf /etc/asterisk/ 
 
 RUN sed -i 's/^user		= mysql/user		= root/' /etc/mysql/my.cnf
 
