@@ -1,4 +1,4 @@
-FROM debian:8
+FROM node:12-stretch
 
 ENV DEBIAN_FRONTEND noninteractive
 
