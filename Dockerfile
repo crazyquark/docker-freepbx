@@ -6,23 +6,12 @@ RUN apt-get update \
 	&& apt-get upgrade -y \
 	&& apt-get install -y build-essential openssh-server apache2 mysql-server\
 	mysql-client bison flex php5 php5-curl php5-cli php5-mysql php-pear php5-gd curl sox\
-	libncurses5-dev libssl-dev libmysqlclient-dev mpg123 libxml2-dev libnewt-dev sqlite3\
+	libncurses5-dev libssl-dev libmysqlclient-dev mpg123 libxml2-dev libnewt-dev sqlite3 libresample1-dev\
 	libsqlite3-dev pkg-config automake libtool autoconf git unixodbc-dev uuid uuid-dev\
-	libasound2-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev\
+	libasound2-dev libjansson-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev\
 	libspandsp-dev sudo libmyodbc subversion libtool-bin python-dev\
 	aptitude cron fail2ban net-tools vim wget \
 	&& rm -rf /var/lib/apt/lists/*
-
-RUN cd /usr/src \
-	&& wget -O jansson.tar.gz https://github.com/akheron/jansson/archive/v2.7.tar.gz \
-	&& tar xfz jansson.tar.gz \
-	&& rm -f jansson.tar.gz \
-	&& cd jansson-* \
-	&& autoreconf -i \
-	&& ./configure \
-	&& make \
-	&& make install \
-	&& rm -r /usr/src/jansson*
 
 RUN cd /usr/src \
 	&& wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-15.7.3.tar.gz \
@@ -81,7 +70,7 @@ RUN a2enmod rewrite
 #### Add G729 Codecs
 RUN	git clone https://github.com/BelledonneCommunications/bcg729 /usr/src/bcg729 ; \
 	cd /usr/src/bcg729 ; \
-	git checkout tags/$BCG729_VERSION ; \
+	git checkout tags/1.0.4 ; \
 	./autogen.sh ; \
 	./configure --libdir=/lib ; \
 	make ; \
