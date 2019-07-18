@@ -3,12 +3,24 @@ services:
   freepbx:
     build: .
     image: flaviostutz/freepbx:14.0
-    network_mode: host
     restart: always
     volumes:
-      - freepbx-backup:/backup
-      - freepbx-recordings:/var/spool/asterisk/monitor
+      - ./backup:/backup
+      - ./recordings:/var/spool/asterisk/monitor
+      - freepbx_db:/var/lib/mysql
+    ports:
+      - 9090:80 
+      - 3306:3306
+      - 5060:5060
+      - 5061:5061
+      - 5160:5160
+      - 5161:5161
+      - 4569:4569
+      - 10000-20000:10000-20000/udp
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyUSB1:/dev/ttyUSB1
+      - /dev/ttyUSB2:/dev/ttyUSB2
 
 volumes:
-  freepbx-backup:
-  freepbx-recordings:
+  freepbx_db:

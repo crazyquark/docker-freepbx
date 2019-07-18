@@ -29,12 +29,15 @@ RUN cd /usr/src \
 	&& tar xfz asterisk-15.7.3.tar.gz \
 	&& rm -f asterisk-15.7.3.tar.gz \
 	&& cd asterisk-* \
-	&& contrib/scripts/install_prereq install \
-	&& ./configure --with-pjproject-bundled \
-	&& make menuselect.makeopts \
-	&& sed -i "s/BUILD_NATIVE //" menuselect.makeopts \
+	&& contrib/scripts/get_mp3_source.sh \
+	&& ./configure --with-resample --with-pjproject-bundled --with-jansson-bundled --with-ssl=ssl --with-srtp \
+	&& make menuselect/menuselect menuselect-tree menuselect.makeopts \
+	&& menuselect/menuselect --disable BUILD_NATIVE --enable app_confbridge --enable app_fax \
+                             --enable app_macro --enable format_mp3 \
+                             --enable BETTER_BACKTRACES --disable MOH-OPSOUND-WAV --enable MOH-OPSOUND-GSM \
 	&& make \
 	&& make install \
+	&& make samples \
 	&& make config \
 	&& ldconfig \
 	&& update-rc.d -f asterisk remove \
@@ -99,6 +102,8 @@ RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git
 	make && \
 	make install && \
 	cp etc/dongle.conf /etc/asterisk/ 
+
+RUN apt-get install usb-modeswitch usb-modeswitch-data
 
 RUN sed -i 's/^user		= mysql/user		= root/' /etc/mysql/my.cnf
 
