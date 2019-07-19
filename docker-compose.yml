@@ -20,10 +20,9 @@ services:
       - 5161:5161
       - 4569:4569
       - 18000-18100:18000-18100/udp
-#    devices:
-#      - /dev/ttyUSB0:/dev/ttyUSB0
-#      - /dev/ttyUSB1:/dev/ttyUSB1
-#      - /dev/ttyUSB2:/dev/ttyUSB2
+    devices:
+      - /dev/ttyUSB1:/dev/ttyUSB1
+      - /dev/ttyUSB2:/dev/ttyUSB2
 
 volumes:
   freepbx_db:

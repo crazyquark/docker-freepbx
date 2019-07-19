@@ -95,7 +95,8 @@ RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git
 	./configure --with-astversion=14.7.5 && \
 	make && \
 	make install && \
-	cp etc/dongle.conf /etc/asterisk/ 
+
+COPY ./config/asterisk/dongle.conf /etc/asterisk/dongle.conf 
 
 RUN sed -i 's/^user		= mysql/user		= root/' /etc/mysql/my.cnf
 
