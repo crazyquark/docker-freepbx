@@ -10,7 +10,7 @@ RUN apt-get update \
 	libsqlite3-dev pkg-config automake libtool autoconf git unixodbc-dev uuid uuid-dev\
 	libasound2-dev libjansson-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev\
 	libspandsp-dev sudo libmyodbc subversion libtool-bin python-dev\
-	aptitude cron fail2ban net-tools vim wget \
+	aptitude cron fail2ban net-tools nano wget usb-modeswitch usb-modeswitch-data \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN cd /usr/src \
@@ -91,8 +91,6 @@ RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git
 	make && \
 	make install && \
 	cp etc/dongle.conf /etc/asterisk/ 
-
-RUN apt-get install usb-modeswitch usb-modeswitch-data
 
 RUN sed -i 's/^user		= mysql/user		= root/' /etc/mysql/my.cnf
 
