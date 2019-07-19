@@ -37,6 +37,7 @@ RUN cd /usr/src \
 	&& rm -r /usr/src/asterisk*
 
 RUN useradd -m asterisk \
+	&& groupmod -g 1000 asterisk \
 	&& chown asterisk. /var/run/asterisk \
 	&& chown -R asterisk. /etc/asterisk \
 	&& chown -R asterisk. /var/lib/asterisk \
@@ -113,3 +114,5 @@ VOLUME [ "/var/spool/asterisk/monitor" ]
 VOLUME [ "/var/lib/mysql" ]
 #automatic backup
 VOLUME [ "/backup" ]
+#config
+VOLUME [ "/etc/asterisk" ]
