@@ -94,7 +94,7 @@ RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git
 	./bootstrap && \
 	./configure --with-astversion=14.7.5 && \
 	make && \
-	make install && \
+	make install
 
 COPY ./config/asterisk/dongle.conf /etc/asterisk/dongle.conf 
 
