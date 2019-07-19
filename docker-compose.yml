@@ -2,12 +2,15 @@ version: '3.3'
 services:
   freepbx:
     build: .
-    image: flaviostutz/freepbx:14.0
-    restart: always
+    image: crazyquark/freepbx:14-armhf
+    container_name: freepbx
     volumes:
-      - ./backup:/backup
-      - ./recordings:/var/spool/asterisk/monitor
+      - freepbx_backup:/backup
+      - freepbx_recordings:/var/spool/asterisk/monitor
       - freepbx_db:/var/lib/mysql
+    environment:
+      - RTP_START=18000
+      - RTP_FINISH=18100
     ports:
       - 9090:80 
       - 3306:3306
@@ -16,11 +19,13 @@ services:
       - 5160:5160
       - 5161:5161
       - 4569:4569
-      - 10000-20000:10000-20000/udp
-    devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
-      - /dev/ttyUSB1:/dev/ttyUSB1
-      - /dev/ttyUSB2:/dev/ttyUSB2
+      - 18000-18100:18000-18100/udp
+#    devices:
+#      - /dev/ttyUSB0:/dev/ttyUSB0
+#      - /dev/ttyUSB1:/dev/ttyUSB1
+#      - /dev/ttyUSB2:/dev/ttyUSB2
 
 volumes:
   freepbx_db:
+  freepbx_recordings:
+  freepbx_backup:

@@ -1,9 +1,13 @@
-FROM node:10-jessie
+FROM debian:8
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update \
-	&& apt-get upgrade -y \
+### NodeJS 10
+RUN apt-get update && apt-get install -y curl && \
+curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+apt-get install -y nodejs
+
+RUN     apt-get upgrade -y \
 	&& apt-get install -y build-essential openssh-server apache2 mysql-server\
 	mysql-client bison flex php5 php5-curl php5-cli php5-mysql php-pear php5-gd curl sox\
 	libncurses5-dev libssl-dev libmysqlclient-dev mpg123 libxml2-dev libnewt-dev sqlite3 libresample1-dev\
