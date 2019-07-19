@@ -14,7 +14,7 @@ RUN     apt-get upgrade -y \
 	libsqlite3-dev pkg-config automake libtool autoconf git unixodbc-dev uuid uuid-dev\
 	libasound2-dev libjansson-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev\
 	libspandsp-dev sudo libmyodbc subversion libtool-bin python-dev\
-	aptitude cron fail2ban net-tools nano wget usb-modeswitch usb-modeswitch-data \
+	aptitude cron fail2ban net-tools nano wget \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN cd /usr/src \
@@ -105,7 +105,7 @@ RUN chown asterisk:asterisk -R /var/spool/asterisk
 
 CMD /run/startup.sh
 
-EXPOSE 80 3306 5060 5061 5160 5161 4569 10000-20000/udp
+EXPOSE 80 3306 5060/udp 5160/udp 5061 5161 4569 10000-20000/udp
 
 #recordings data
 VOLUME [ "/var/spool/asterisk/monitor" ]
