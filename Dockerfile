@@ -37,13 +37,13 @@ RUN cd /usr/src \
 	&& rm -r /usr/src/asterisk*
 
 RUN useradd -m asterisk \
-	&& groupmod -g 1000 asterisk \
 	&& chown asterisk. /var/run/asterisk \
 	&& chown -R asterisk. /etc/asterisk \
 	&& chown -R asterisk. /var/lib/asterisk \
 	&& chown -R asterisk. /var/log/asterisk \
 	&& chown -R asterisk. /var/spool/asterisk \
 	&& chown -R asterisk. /usr/lib/asterisk \
+	&& chown -R asterisk. /tmp \
 	&& rm -rf /var/www/html
 
 RUN sed -i 's/^upload_max_filesize = 2M/upload_max_filesize = 120M/' /etc/php5/apache2/php.ini \

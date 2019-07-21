@@ -4,25 +4,22 @@ services:
     build: .
     image: crazyquark/freepbx:14-armhf
     container_name: freepbx
-    network_mode: host
     volumes:
-      - freepbx_backup:/backup
-      - freepbx_recordings:/var/spool/asterisk/monitor
+      - ./backup:/backup
+      - ./recordings:/var/spool/asterisk/monitor
       - freepbx_db:/var/lib/mysql
-#    ports:
-#      - 9090:80 
-#      - 3306:3306
-#      - 5060:5060/udp
-#      - 5061:5061
-#      - 5160:5160/udp
-#      - 5161:5161
-#      - 4569:4569
-#      - 18000-18100:18000-18100/udp
+    ports:
+      - 9090:80 
+      - 3306:3306
+      - 5060:5060/udp
+      - 5061:5061
+      - 5160:5160/udp
+      - 5161:5161
+      - 4569:4569
+      - 18000-18100:18000-18100/udp
     devices:
       - /dev/ttyUSB2:/dev/ttyUSB1
       - /dev/ttyUSB3:/dev/ttyUSB2
 
 volumes:
   freepbx_db:
-  freepbx_recordings:
-  freepbx_backup:
