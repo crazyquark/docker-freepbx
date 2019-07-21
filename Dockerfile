@@ -45,8 +45,6 @@ RUN sed -i 's/^upload_max_filesize = 2M/upload_max_filesize = 120M/' /etc/php5/a
 COPY ./config/odbcinst.ini /etc/odbcinst.ini
 COPY ./config/odbc.ini /etc/odbc.ini
 
-COPY ./config/exim4/exim4.conf /etc/exim4/exim4.conf
-
 RUN cd /usr/src \
 	&& wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-15.0-latest.tgz \
 	&& tar xfz freepbx-14.0-latest.tgz \
