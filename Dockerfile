@@ -1,10 +1,10 @@
-FROM debian:8
+FROM debian:10
 
 ENV DEBIAN_FRONTEND noninteractive
 
 ### NodeJS 10
 RUN apt-get update && apt-get install -y curl && \
-curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
 apt-get install -y nodejs
 
 RUN     apt-get upgrade -y \
@@ -17,32 +17,15 @@ RUN     apt-get upgrade -y \
 	aptitude cron fail2ban net-tools nano wget \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN cd /usr/src \
-	&& wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-15.7.3.tar.gz \
-	&& tar xfz asterisk-15.7.3.tar.gz \
-	&& rm -f asterisk-15.7.3.tar.gz \
-	&& cd asterisk-* \
-	&& contrib/scripts/get_mp3_source.sh \
-	&& ./configure --with-resample --with-pjproject-bundled --with-jansson-bundled --with-ssl=ssl --with-srtp \
-	&& make menuselect/menuselect menuselect-tree menuselect.makeopts \
-	&& menuselect/menuselect --disable BUILD_NATIVE --enable app_confbridge --enable app_fax \
-                             --enable app_macro --enable format_mp3 \
-                             --enable BETTER_BACKTRACES --disable MOH-OPSOUND-WAV --enable MOH-OPSOUND-GSM \
-	&& make \
-	&& make install \
-	&& make samples \
-	&& make config \
-	&& ldconfig \
-	&& update-rc.d -f asterisk remove \
-	&& rm -r /usr/src/asterisk*
+RUN apt-get install asterisk apache2 libapache2-mod-fcgid build-essential openssh-server apache2 mariadb-server  mariadb-client bison flex php7.0 php7.0-curl php7.0-cli php7.0-pdo php7.0-mysql php7.0-mbstring php7.0-xml curl sox  libncurses5-dev libssl-dev mpg123 libxml2-dev libnewt-dev sqlite3  libsqlite3-dev pkg-config automake libtool autoconf git unixodbc-dev uuid uuid-dev  libasound2-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev  libspandsp-dev sudo subversion libtool-bin python-dev unixodbc dirmngr sendmail nodejs
+RUN systemctl stop asterisk
 
-RUN useradd -m asterisk \
-	&& groupmod -g 1000 asterisk \
+RUN rm -rf /etc/asterisk \
+	&& mkdir /etc/asterisk \
+	&& touch /etc/asterisk/{modules,cdr}.conf \
 	&& chown asterisk. /var/run/asterisk \
 	&& chown -R asterisk. /etc/asterisk \
-	&& chown -R asterisk. /var/lib/asterisk \
-	&& chown -R asterisk. /var/log/asterisk \
-	&& chown -R asterisk. /var/spool/asterisk \
+	&& chown -R asterisk. /var/{lib,log,spool}/asterisk \
 	&& chown -R asterisk. /usr/lib/asterisk \
 	&& rm -rf /var/www/html
 
@@ -58,7 +41,7 @@ COPY ./config/odbc.ini /etc/odbc.ini
 COPY ./config/exim4/exim4.conf /etc/exim4/exim4.conf
 
 RUN cd /usr/src \
-	&& wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-14.0-latest.tgz \
+	&& wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-15.0-latest.tgz \
 	&& tar xfz freepbx-14.0-latest.tgz \
 	&& rm -f freepbx-14.0-latest.tgz \
 	&& cd freepbx \
