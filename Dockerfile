@@ -8,8 +8,8 @@ curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
 apt-get install -y nodejs
 
 RUN     apt-get upgrade -y \
-	&& apt-get install -y build-essential openssh-server apache2 mysql-server\
-	mysql-client bison flex php5 php5-curl php5-cli php5-mysql php-pear php5-gd curl sox\
+	&& apt-get install -y build-essential openssh-server \
+	mysql-client bison flex curl sox\
 	libncurses5-dev libssl-dev libmysqlclient-dev mpg123 libxml2-dev libnewt-dev sqlite3 libresample1-dev\
 	libsqlite3-dev pkg-config automake libtool autoconf git unixodbc-dev uuid uuid-dev\
 	libasound2-dev libjansson-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev\
