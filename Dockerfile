@@ -65,8 +65,9 @@ RUN cd /usr/src \
 	&& chown mysql:mysql -R /var/lib/mysql/* \
 	&& /etc/init.d/mysql start \
 	&& ./start_asterisk start \
-	&& ./install -n \
-	&& fwconsole chown \
+	&& ./install -n
+
+RUN fwconsole chown \
 	&& fwconsole ma upgradeall \
 	&& fwconsole ma downloadinstall announcement backup bulkhandler ringgroups timeconditions ivr restapi cel \
 	&& /etc/init.d/mysql stop \
