@@ -14,7 +14,7 @@ RUN	curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
 
 RUN apt-get update && apt-get upgrade -y
 
-RUN apt-get install -y asterisk nano apache2 libapache2-mod-fcgid build-essential mariadb-server mariadb-client \
+RUN apt-get install -y asterisk asterisk-dev nano apache2 libapache2-mod-fcgid build-essential mariadb-server mariadb-client \
 	bison flex openssh-server aptitude cron fail2ban net-tools \
 	php7.0 php7.0-curl php7.0-cli php7.0-pdo php7.0-mysql php7.0-mbstring php7.0-xml curl sox \
 	libncurses5-dev libssl-dev mpg123 libxml2-dev libnewt-dev sqlite3  libsqlite3-dev \
@@ -84,7 +84,7 @@ RUN	git clone https://github.com/BelledonneCommunications/bcg729 /usr/src/bcg729
 RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git && \
 	cd asterisk-chan-dongle && \
 	./bootstrap && \
-	./configure --with-astversion=14.7.5 && \
+	./configure --with-astversion=16.2.1 && \
 	make && \
 	make install
 
