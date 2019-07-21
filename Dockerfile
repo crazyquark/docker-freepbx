@@ -49,8 +49,8 @@ RUN service apache2 restart
 
 RUN cd /usr/src \
 	&& wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-15.0-latest.tgz \
-	&& tar xfz freepbx-14.0-latest.tgz \
-	&& rm -f freepbx-14.0-latest.tgz \
+	&& tar xfz freepbx-15.0-latest.tgz \
+	&& rm -f freepbx-15.0-latest.tgz \
 	&& cd freepbx \
 	&& chown mysql:mysql -R /var/lib/mysql/* \
 	&& /etc/init.d/mysql start \
