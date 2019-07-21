@@ -4,18 +4,21 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ### NodeJS 10
 RUN apt-get update && apt-get install -y curl && \
-curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
-apt-get install -y nodejs
+	curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
+	apt-get install -y nodejs
 
 RUN     apt-get upgrade -y \
 	&& apt-get install -y build-essential openssh-server \
-	mysql-client bison flex curl sox\
-	libncurses5-dev libssl-dev libmysqlclient-dev mpg123 libxml2-dev libnewt-dev sqlite3 libresample1-dev\
+	bison flex curl sox\
+	libncurses5-dev libssl-dev mpg123 libxml2-dev libnewt-dev sqlite3 libresample1-dev\
 	libsqlite3-dev pkg-config automake libtool autoconf git unixodbc-dev uuid uuid-dev\
-	libasound2-dev libjansson-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev\
-	libspandsp-dev sudo libmyodbc subversion libtool-bin python-dev\
+	libasound2-dev libjansson-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev \
+	libspandsp-dev sudo subversion libtool-bin python-dev\
 	aptitude cron fail2ban net-tools nano wget \
 	&& rm -rf /var/lib/apt/lists/*
+
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
+	&& echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list
 
 RUN apt-get install asterisk apache2 libapache2-mod-fcgid build-essential openssh-server apache2 mariadb-server  mariadb-client bison flex php7.0 php7.0-curl php7.0-cli php7.0-pdo php7.0-mysql php7.0-mbstring php7.0-xml curl sox  libncurses5-dev libssl-dev mpg123 libxml2-dev libnewt-dev sqlite3  libsqlite3-dev pkg-config automake libtool autoconf git unixodbc-dev uuid uuid-dev  libasound2-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev  libspandsp-dev sudo subversion libtool-bin python-dev unixodbc dirmngr sendmail nodejs
 RUN systemctl stop asterisk
