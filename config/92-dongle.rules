@@ -1,1 +1,4 @@
-KERNEL=="ttyUSB*", MODE="0666", OWNER="root", GROUP="asterisk"
+KERNEL=="ttyUSB*", MODE="0666", OWNER="dietpi", GROUP="dietpi"
+KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="03", SYMLINK+="ttyUSB_V"
+KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="04", SYMLINK+="ttyUSB_D"
+
