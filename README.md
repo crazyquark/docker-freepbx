@@ -1,16 +1,16 @@
-# FreePBX on Docker
+# FreePBX on Docker (ARMv7)
 
 FreePBX container image for running a complete Asterisk server.
 
 With this container you can create a telephony system in your office or house with integration among various office branches and integration to external VOIP providers with features such as call recording and IVR (interactive voice response) Menus.
 
-This image is used in production deployments.
+This image adapts the source image for ARMv7, branches 14-armhf, 15-armhf.
+Definitely not for production.
 
 ### Image includes
 
- * Asterisk 15
- * FreePBX 14
- * Modules: IVR, Time Conditions, Backup, Recording
+ * Asterisk 15(14-armhf branch)/16(15-armhf branch)
+ * FreePBX 14/15
  * Automatic backup script
 
 
@@ -21,7 +21,7 @@ docker-compose.yml
 version: '3.3'
 services:
   freepbx:
-    image: flaviostutz/freepbx:14.0
+    image: crazyquark/freepbx:14-armhf
     network_mode: host
     restart: always
     volumes:
