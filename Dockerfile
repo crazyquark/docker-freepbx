@@ -98,7 +98,7 @@ RUN chown asterisk:asterisk -R /var/spool/asterisk
 
 CMD /run/startup.sh
 
-EXPOSE 80 3306 5060/udp 5160/udp 5061 5161 4569 10000-20000/udp
+EXPOSE 80 3306 5060/udp 5160/udp 5061 5161 4569 18000-18030/udp
 
 #recordings data
 VOLUME [ "/var/spool/asterisk/monitor" ]
