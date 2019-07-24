@@ -21,7 +21,7 @@ RUN apt-get install -y asterisk asterisk-dev nano apache2 libapache2-mod-fcgid b
 	pkg-config automake libtool autoconf \
 	git unixodbc-dev uuid uuid-dev \
 	libasound2-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev libical-dev libneon27-dev libspandsp-dev sudo subversion \
-	libtool-bin python-dev unixodbc dirmngr sendmail
+	libtool-bin python-dev unixodbc dirmngr exim4
 
 RUN service asterisk stop
 	
