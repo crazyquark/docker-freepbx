@@ -89,6 +89,8 @@ RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git
 
 COPY ./config/asterisk/dongle.conf /etc/asterisk/dongle.conf 
 
+COPY ./config/exim4/exim4.conf /etc/exim4/exim4.conf
+
 RUN sed -i 's/^user		= mysql/user		= root/' /etc/mysql/my.cnf
 
 COPY ./run /run
