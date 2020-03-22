@@ -2,6 +2,8 @@ FROM debian:8
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV ASTERISK_VERSION=15.7.4
+
 ### NodeJS 10
 RUN apt-get update && apt-get install -y curl && \
 curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
@@ -18,9 +20,9 @@ RUN     apt-get upgrade -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN cd /usr/src \
-	&& wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-15.7.3.tar.gz \
-	&& tar xfz asterisk-15.7.3.tar.gz \
-	&& rm -f asterisk-15.7.3.tar.gz \
+	&& wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-${ASTERISK_VERSION}.tar.gz \
+	&& tar xfz asterisk-${ASTERISK_VERSION}.tar.gz \
+	&& rm -f asterisk-${ASTERISK_VERSION}.tar.gz \
 	&& cd asterisk-* \
 	&& contrib/scripts/get_mp3_source.sh \
 	&& ./configure --with-resample --with-pjproject-bundled --with-jansson-bundled --with-ssl=ssl --with-srtp \
@@ -87,14 +89,14 @@ RUN	git clone https://github.com/BelledonneCommunications/bcg729 /usr/src/bcg729
 	curl https://bitbucket.org/arkadi/asterisk-g72x/get/default.tar.gz | tar xvfz - --strip 1 -C /usr/src/asterisk-g72x ; \
 	cd /usr/src/asterisk-g72x ; \
 	./autogen.sh ; \
-	./configure CFLAGS='-march=armv7' --with-bcg729 --with-asterisk${ASTERISK_VERSION}0 --enable-penryn; \
+	./configure CFLAGS='-march=armv7' --with-bcg729 --enable-penryn; \
 	make ; \
 	make install
 
 RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git && \
 	cd asterisk-chan-dongle && \
 	./bootstrap && \
-	./configure --with-astversion=14.7.5 && \
+	./configure --with-astversion=${ASTERISK_VERSION} && \
 	make && \
 	make install
 
