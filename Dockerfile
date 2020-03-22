@@ -2,6 +2,8 @@ FROM debian:10
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV ASTERISK_VERSION=16.2.1
+
 RUN apt-get update && apt-get install -y curl wget
 
 ### PHP
@@ -83,7 +85,7 @@ RUN	git clone https://github.com/BelledonneCommunications/bcg729 /usr/src/bcg729
 RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git && \
 	cd asterisk-chan-dongle && \
 	./bootstrap && \
-	./configure --with-astversion=16.2.1 && \
+	./configure --with-astversion=${ASTERISK_VERSION} && \
 	make && \
 	make install
 
