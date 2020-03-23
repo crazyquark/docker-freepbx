@@ -2,7 +2,7 @@ FROM debian:8
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV ASTERISK_VERSION=15.7.4
+ENV ASTERISK_VERSION=13.32.0
 
 ### NodeJS 10
 RUN apt-get update && apt-get install -y curl && \
@@ -60,9 +60,9 @@ COPY ./config/odbc.ini /etc/odbc.ini
 COPY ./config/exim4/exim4.conf /etc/exim4/exim4.conf
 
 RUN cd /usr/src \
-	&& wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-14.0-latest.tgz \
-	&& tar xfz freepbx-14.0-latest.tgz \
-	&& rm -f freepbx-14.0-latest.tgz \
+	&& wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-15.0-latest.tgz \
+	&& tar xfz freepbx-15.0-latest.tgz \
+	&& rm -f freepbx-15.0-latest.tgz \
 	&& cd freepbx \
 	&& chown mysql:mysql -R /var/lib/mysql/* \
 	&& /etc/init.d/mysql start \
@@ -86,7 +86,7 @@ RUN	git clone https://github.com/BelledonneCommunications/bcg729 /usr/src/bcg729
 	make install ; \
 	\
 	mkdir -p /usr/src/asterisk-g72x ; \
-	curl https://bitbucket.org/arkadi/asterisk-g72x/get/default.tar.gz | tar xvfz - --strip 1 -C /usr/src/asterisk-g72x ; \
+	curl https://bitbucket.org/arkadi/asterisk-g72x/get/master.tar.gz | tar xvfz - --strip 1 -C /usr/src/asterisk-g72x ; \
 	cd /usr/src/asterisk-g72x ; \
 	./autogen.sh ; \
 	./configure CFLAGS='-march=armv7' --with-bcg729 --enable-penryn; \

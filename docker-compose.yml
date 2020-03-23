@@ -2,7 +2,7 @@ version: '3.3'
 services:
   freepbx:
     build: .
-    image: crazyquark/freepbx:14-armhf
+    image: crazyquark/freepbx:15ast13-armhf
     container_name: freepbx
     volumes:
       - ./backup:/backup
