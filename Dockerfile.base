@@ -64,12 +64,12 @@ RUN	git clone https://github.com/BelledonneCommunications/bcg729 /usr/src/bcg729
 	make install
 	
 RUN	mkdir -p /usr/src/asterisk-g72x ; \
-	curl https://bitbucket.org/arkadi/asterisk-g72x/get/master.tar.gz | tar xvfz - --strip 1 -C /usr/src/asterisk-g72x ; \
+	# Why does this need -k(--insecure?)
+	curl -k https://bitbucket.org/arkadi/asterisk-g72x/get/master.tar.gz | tar xvfz - --strip 1 -C /usr/src/asterisk-g72x ; \
 	cd /usr/src/asterisk-g72x ; \
 	./autogen.sh ; \
 	ARCH=$(uname -m) && \
-	if [[ "$ARCH"="armv7l" ]]; then CFLAGS='-march=armv7'; fi && \
-	./configure --with-bcg729 --enable-penryn; \
+	if [ "$ARCH"="armv7" ]; then ./configure CFLAGS="-march=armv7" --with-bcg729 --enable-penryn; else ./configure --with-bcg729 --enable-penryn; fi &&  \
 	make ; \
 	make install
 
