@@ -2,7 +2,7 @@ version: '3.3'
 services:
   freepbx:
     build: .
-    image: crazyquark/freepbx:15-armhf
+    image: crazyquark/freepbx:15
     container_name: freepbx
     volumes:
       - ./backup:/backup
@@ -17,10 +17,10 @@ services:
       - 5161:5161
       - 4569:4569
       - 18000-18030:18000-18030/udp
-    devices:
-      - /dev/ttyUSB_V:/dev/ttyUSB1
-      - /dev/ttyUSB_D:/dev/ttyUSB2
-    restart: unless-stopped
+#   devices:
+#     - /dev/ttyUSB_V:/dev/ttyUSB1
+#     - /dev/ttyUSB_D:/dev/ttyUSB2
+#   restart: unless-stopped
 
 volumes:
   freepbx_db:
