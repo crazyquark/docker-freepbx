@@ -78,6 +78,8 @@ RUN	git clone https://github.com/BelledonneCommunications/bcg729 /usr/src/bcg729
 	curl https://bitbucket.org/arkadi/asterisk-g72x/get/master.tar.gz | tar xvfz - --strip 1 -C /usr/src/asterisk-g72x ; \
 	cd /usr/src/asterisk-g72x ; \
 	./autogen.sh ; \
+	ARCH=$(uname -m) && \
+	if [[ "$ARCH" = "armv7l" ]]; then CFLAGS='-march=armv7'; fi && \
 	./configure --with-bcg729 --enable-penryn; \
 	make ; \
 	make install
