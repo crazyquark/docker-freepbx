@@ -6,12 +6,15 @@ This is an experimental image, probably not safe for production.
 
 ### Image includes
 
- * Asterisk 15
- * FreePBX 14
+ * Asterisk 16
+ * FreePBX 15
+ * chan_dongle
 
 ### Run FreePBX image
 
-See `docker-compose.yml`
+See `docker-compose.yml`.  
+  
+To use **chan_dongle** enable the `devices:` section of `docker-compose.yml` also check the actual device paths on your machine(I used an udev trick to have them always have the same name, see `config/92-dongle.rules`)  
 
 ## Mini How-To Multiarch builds
 There are no all-in one tutorials but you can read about multiarch builds [https://docs.docker.com/buildx/working-with-buildx/](here).  
