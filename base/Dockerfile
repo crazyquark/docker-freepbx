@@ -90,13 +90,4 @@ RUN chmod +x /run/*
 
 RUN chown asterisk:asterisk -R /var/spool/asterisk
 
-#recordings data
-VOLUME [ "/var/spool/asterisk/monitor" ]
-#database data
-VOLUME [ "/var/lib/mysql" ]
-#automatic backup
-VOLUME [ "/backup" ]
-#config
-VOLUME [ "/etc/asterisk" ]
-
 EXPOSE 80 3306 5060/udp 5160/udp 5061 5161 4569 18000-18030/udp
