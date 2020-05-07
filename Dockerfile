@@ -7,7 +7,7 @@ RUN cd /usr/src/freepbx \
 	&& ./start_asterisk start \
 	&& ./install -n \
 	&& fwconsole chown \
-	&& fwconsole ma upgradeall \
+	# && fwconsole ma upgradeall \
 	&& fwconsole ma downloadinstall announcement backup bulkhandler ringgroups timeconditions ivr restapi cel \
 	&& /etc/init.d/mysql stop \
 	&& rm -rf /usr/src/freepbx*
