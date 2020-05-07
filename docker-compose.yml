@@ -1,8 +1,7 @@
 version: '3.3'
 services:
   freepbx:
-    build: .
-    image: crazyquark/freepbx:15-amd64
+    image: crazyquark/freepbx:15
     container_name: freepbx
     volumes:
       - ./backup:/backup

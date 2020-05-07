@@ -13,12 +13,12 @@ RUN cd /usr/src/freepbx \
 	&& rm -rf /usr/src/freepbx*
 
 # #recordings data
-# VOLUME [ "/var/spool/asterisk/monitor" ]
+VOLUME [ "/var/spool/asterisk/monitor" ]
 # #database data
-# VOLUME [ "/var/lib/mysql" ]
+VOLUME [ "/var/lib/mysql" ]
 # #automatic backup
-# VOLUME [ "/backup" ]
+VOLUME [ "/backup" ]
 # #config
-# VOLUME [ "/etc/asterisk" ]
+VOLUME [ "/etc/asterisk" ]
 
 CMD /run/startup.sh
