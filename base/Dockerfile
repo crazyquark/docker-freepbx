@@ -85,8 +85,6 @@ COPY ./config/asterisk/dongle.conf /etc/asterisk/dongle.conf
 
 COPY ./config/exim4/exim4.conf /etc/exim4/exim4.conf
 
-RUN sed -i 's/^user		= mysql/user		= root/' /etc/mysql/my.cnf
-
 COPY ./run /run
 RUN chmod +x /run/*
 

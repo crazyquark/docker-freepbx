@@ -7,9 +7,9 @@ RUN cd /usr/src/freepbx \
 	&& ./start_asterisk start \
 	&& sed -i 's/$process = new Process($command);/$process = new Process($command); $process->setTimeout(3600);/' installlib/installcommand.class.php \
 	&& ./install -n \
-	&& fwconsole chown \
-#	&& fwconsole ma upgradeall \
-#	&& fwconsole ma downloadinstall announcement backup bulkhandler ringgroups timeconditions ivr restapi cel \
+	# && fwconsole chown \
+	# && fwconsole ma upgradeall \
+	# && fwconsole ma downloadinstall announcement backup bulkhandler ringgroups timeconditions ivr restapi cel \
 	&& /etc/init.d/mysql stop \
 	&& rm -rf /usr/src/freepbx*
 
