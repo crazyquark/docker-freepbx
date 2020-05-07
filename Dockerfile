@@ -8,7 +8,7 @@ RUN cd /usr/src/freepbx \
 	&& ./install -n \
 	&& fwconsole chown \
 	# && fwconsole ma upgradeall \
-	&& fwconsole ma downloadinstall announcement backup bulkhandler ringgroups timeconditions ivr restapi cel \
+	# && fwconsole ma downloadinstall announcement backup bulkhandler ringgroups timeconditions ivr restapi cel \
 	&& /etc/init.d/mysql stop \
 	&& rm -rf /usr/src/freepbx*
 
