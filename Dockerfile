@@ -93,8 +93,6 @@ RUN chmod +x /run/*
 
 EXPOSE 80 3306 5060/udp 5160/udp 5061 5161 4569 18000-18030/udp
 
-
-
 # Recordings data
 VOLUME [ "/var/spool/asterisk/monitor" ]
 # Database data
