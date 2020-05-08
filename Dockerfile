@@ -89,7 +89,7 @@ ADD ./run /run
 # Fix permissions
 RUN chmod +x /run/*
 RUN chown asterisk:asterisk -R /var/spool/asterisk
-RUN chown mysql:mysql -R /var/lib/mysql/* && service mysql start
+RUN chown mysql:mysql -R /var/lib/mysql/*
 
 # Finally, run install
 RUN /run/install.sh

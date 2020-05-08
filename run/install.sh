@@ -4,7 +4,7 @@
 if [ ! -f /etc/freepbx.conf ]; then
   pushd /usr/src/freepbx
   # Start an asterisk instance just for install
-  /etc/init.d/mysql start
+  service mysql start
   ./start_asterisk start
   ./install -n
   status=$?
