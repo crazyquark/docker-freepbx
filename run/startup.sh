@@ -17,7 +17,6 @@ if [ ! -f /etc/freepbx.conf ]; then
   fwconsole chown
   fwconsole ma upgradeall
 	fwconsole ma downloadinstall announcement backup bulkhandler ringgroups timeconditions ivr restapi cel
-  ./start_asterisk stop
 fi
 
 fwconsole start
