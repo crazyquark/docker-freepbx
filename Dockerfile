@@ -81,27 +81,29 @@ RUN	cd /usr/src && git clone https://github.com/wdoekes/asterisk-chan-dongle.git
 	make && \
 	make install
 
+# Copy files
 COPY ./config/asterisk/dongle.conf /etc/asterisk/dongle.conf 
-
 COPY ./config/exim4/exim4.conf /etc/exim4/exim4.conf
-
+ADD ./run /run
 
 # Fix permissions
 RUN chown asterisk:asterisk -R /var/spool/asterisk
 RUN chown mysql:mysql -R /var/lib/mysql/*
+RUN chmod +x /run/*
 
 EXPOSE 80 3306 5060/udp 5160/udp 5061 5161 4569 18000-18030/udp
 
-COPY ./run /run
-RUN chmod +x /run/*
+
 
 # Recordings data
 VOLUME [ "/var/spool/asterisk/monitor" ]
 # Database data
 VOLUME [ "/var/lib/mysql" ]
-# automatic backup
+# Automatic backup
 VOLUME [ "/backup" ]
 # Config
 VOLUME [ "/etc" ]
+# HTML
+VOLUME [ "/var/www" ]
 
 CMD /run/startup.sh

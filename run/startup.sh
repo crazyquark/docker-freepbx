@@ -12,38 +12,47 @@ fi
 # Run the one time install if this is the first time we are running
 if [ ! -f /etc/freepbx.conf ]; then
   pushd /usr/src/freepbx
+  # Start an asterisk instance just for install
   ./start_asterisk start
   ./install -n
+  status=$?
+  
+  if [ $status -ne 0 ]; then
+    echo "Failed to install FreePBX: $status"
+    exit $status
+  fi
+
   fwconsole chown
   fwconsole ma upgradeall
-	fwconsole ma downloadinstall backup pm2
+  fwconsole ma downloadinstall backup pm2
+  
+  # Stop asterisk post install
+  echo 'Done installing FreePBX' && sleep 10
+  ./start_asterisk kill
+  popd
 fi
 
-fwconsole start
-if [ $status -ne 0 ]; then
-  echo "Failed to start fwconsole: $status"
-  exit $status
-fi
-
-
-#restore backup if exists
+# Restore backup if exists
 if [ -f /backup/new.tgz ]; then
   echo "Restoring backup from /backup/new.tgz"
   php /var/www/html/admin/modules/backup/bin/restore.php --items=all --restore=/backup/new.tgz
   echo "Done"
+  
+  # Restart freepbx to load everything fine after restoring backup
+  fwconsole stop
+  status=$?
+  if [ $status -ne 0 ]; then
+    echo "Failed to restart fwconsole: $status"
+    exit $status
+  fi
 fi
-#restart freepbx to load everything fine after restoring backup
-fwconsole stop
-if [ $status -ne 0 ]; then
-  echo "Failed to stop fwconsole: $status"
-  exit $status
-fi
+
 fwconsole start
+status=$?
 if [ $status -ne 0 ]; then
   echo "Failed to start fwconsole: $status"
   exit $status
 fi
-
 
 /etc/init.d/apache2 start
 status=$?
