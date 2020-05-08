@@ -9,6 +9,17 @@ if [ $status -ne 0 ]; then
   exit $status
 fi
 
+# Run the one time install if this is the first time we are running
+if [ ! -f /etc/freepbx.conf ]; then
+  pushd /usr/src/freepbx
+  ./start_asterisk start
+  ./install -n
+  fwconsole chown
+  fwconsole ma upgradeall
+	fwconsole ma downloadinstall announcement backup bulkhandler ringgroups timeconditions ivr restapi cel
+  ./start_asterisk stop
+fi
+
 fwconsole start
 if [ $status -ne 0 ]; then
   echo "Failed to start fwconsole: $status"
