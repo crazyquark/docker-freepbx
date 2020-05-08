@@ -85,12 +85,15 @@ COPY ./config/asterisk/dongle.conf /etc/asterisk/dongle.conf
 
 COPY ./config/exim4/exim4.conf /etc/exim4/exim4.conf
 
-COPY ./run /run
-RUN chmod +x /run/*
 
 # Fix permissions
 RUN chown asterisk:asterisk -R /var/spool/asterisk
 RUN chown mysql:mysql -R /var/lib/mysql/*
+
+EXPOSE 80 3306 5060/udp 5160/udp 5061 5161 4569 18000-18030/udp
+
+COPY ./run /run
+RUN chmod +x /run/*
 
 # Recordings data
 VOLUME [ "/var/spool/asterisk/monitor" ]
@@ -99,8 +102,6 @@ VOLUME [ "/var/lib/mysql" ]
 # automatic backup
 VOLUME [ "/backup" ]
 # Config
-VOLUME [ "/etc/asterisk" ]
-
-EXPOSE 80 3306 5060/udp 5160/udp 5061 5161 4569 18000-18030/udp
+VOLUME [ "/etc" ]
 
 CMD /run/startup.sh

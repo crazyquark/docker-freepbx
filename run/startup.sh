@@ -16,7 +16,7 @@ if [ ! -f /etc/freepbx.conf ]; then
   ./install -n
   fwconsole chown
   fwconsole ma upgradeall
-	fwconsole ma downloadinstall announcement backup bulkhandler ringgroups timeconditions ivr restapi cel
+	fwconsole ma downloadinstall backup pm2
 fi
 
 fwconsole start
