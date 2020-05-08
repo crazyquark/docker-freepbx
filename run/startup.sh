@@ -9,33 +9,6 @@ if [ $status -ne 0 ]; then
   exit $status
 fi
 
-# Run the one time install if this is the first time we are running
-if [ ! -f /etc/freepbx.conf ]; then
-  pushd /usr/src/freepbx
-  # Start an asterisk instance just for install
-  ./start_asterisk start
-  ./install -n
-  status=$?
-  
-  if [ $status -ne 0 ]; then
-    echo "Failed to install FreePBX: $status"
-    exit $status
-  fi
-
-  fwconsole chown
-  fwconsole ma upgradeall
-  fwconsole ma downloadinstall backup pm2
-
-  fwconsole chown
-  fwconsole ma refreshsignatures
-  fwconsole reload 
-  
-  # Stop asterisk post install
-  echo 'Done installing FreePBX' && sleep 10
-  ./start_asterisk kill
-  popd
-fi
-
 # Restore backup if exists
 if [ -f /backup/new.tgz ]; then
   echo "Restoring backup from /backup/new.tgz"
@@ -46,7 +19,7 @@ if [ -f /backup/new.tgz ]; then
   fwconsole stop
   status=$?
   if [ $status -ne 0 ]; then
-    echo "Failed to restart fwconsole: $status"
+    echo "Failed to stop fwconsole: $status"
     exit $status
   fi
 fi

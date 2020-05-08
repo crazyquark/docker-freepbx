@@ -87,9 +87,12 @@ COPY ./config/exim4/exim4.conf /etc/exim4/exim4.conf
 ADD ./run /run
 
 # Fix permissions
-RUN chown asterisk:asterisk -R /var/spool/asterisk
-RUN chown mysql:mysql -R /var/lib/mysql/*
 RUN chmod +x /run/*
+RUN chown asterisk:asterisk -R /var/spool/asterisk
+RUN chown mysql:mysql -R /var/lib/mysql/* && service mysql start
+
+# Finally, run install
+RUN /run/install.sh
 
 EXPOSE 80 3306 5060/udp 5160/udp 5061 5161 4569 18000-18030/udp
 
@@ -99,7 +102,5 @@ VOLUME [ "/var/spool/asterisk/monitor" ]
 VOLUME [ "/var/lib/mysql" ]
 # Automatic backup
 VOLUME [ "/backup" ]
-# Config and installed files
-VOLUME [ "/etc", "/var/www", "/usr" ]
 
 CMD /run/startup.sh
