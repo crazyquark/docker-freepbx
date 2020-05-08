@@ -101,9 +101,7 @@ VOLUME [ "/var/spool/asterisk/monitor" ]
 VOLUME [ "/var/lib/mysql" ]
 # Automatic backup
 VOLUME [ "/backup" ]
-# Config
-VOLUME [ "/etc" ]
-# HTML
-VOLUME [ "/var/www" ]
+# Config and installed files
+VOLUME [ "/etc", "/var/www", "/usr" ]
 
 CMD /run/startup.sh
