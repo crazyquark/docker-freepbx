@@ -25,6 +25,10 @@ if [ ! -f /etc/freepbx.conf ]; then
   fwconsole chown
   fwconsole ma upgradeall
   fwconsole ma downloadinstall backup pm2
+
+  fwconsole chown
+  fwconsole ma refreshsignatures
+  fwconsole reload 
   
   # Stop asterisk post install
   echo 'Done installing FreePBX' && sleep 10
