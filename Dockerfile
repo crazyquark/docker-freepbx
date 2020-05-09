@@ -70,7 +70,7 @@ RUN	mkdir -p /usr/src/asterisk-g72x ; \
 	./autogen.sh
 
 RUN cd /usr/src/asterisk-g72x ; \
-	if [ "$(uname -m)" = "armv7l" ]; then ./configure CFLAGS='-march=armv7' --with-bcg729 ; else ./configure --with-bcg729 --enable-penryn ; fi ; \
+	./configure --with-bcg729 ; \
 	make ; \
 	make install
 
