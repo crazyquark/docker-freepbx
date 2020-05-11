@@ -1,6 +1,6 @@
 #!/bin/bash
 
-arch=(x86_64 armv7l)
+arch=(x86_64 armv7l aarch64)
 for tag in "${arch[@]}"
 do
     docker pull crazyquark/freepbx:15-${tag}
